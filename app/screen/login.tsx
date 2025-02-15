@@ -16,7 +16,6 @@ import { navigationRef } from "../navigation";
 import { CommonActions } from "@react-navigation/native";
 
 export default function HomeScreen(props: any) {
-  const { navigation } = props;
   const [loading, setLoading] = React.useState(false);
   const {
     control,

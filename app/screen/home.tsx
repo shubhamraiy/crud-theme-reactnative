@@ -12,12 +12,12 @@ export default function HomeScreen(props: any) {
   const navigation: any = useNavigation();
   const [posts, setPosts] = useState<any>([]);
   const [loading, setLoading] = useState(false);
-  const [deleting, setDeleting] = useState<number | null>(null); // Track deleting post ID
-
+  const [deleting, setDeleting] = useState<number | null>(null);
   const isFocus = useIsFocused();
 
   useEffect(() => {
     fetchPosts();
+    getData();
   }, [isFocus]);
   const getData = async () => {
     try {

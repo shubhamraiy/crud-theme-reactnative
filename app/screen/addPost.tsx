@@ -98,7 +98,7 @@ export default function AddPostScreen(props: any) {
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
               <TextInput
-                style={styles.input}
+                style={[styles.input, { height: 150 }]}
                 value={value}
                 onChangeText={onChange}
                 placeholder="Type your post body..."
