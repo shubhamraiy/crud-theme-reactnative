@@ -67,7 +67,7 @@ export default function HomeScreen(props: any) {
         )}
         name="username"
       />
-      {errors.email && (
+      {errors.username && (
         <Text style={styles.errorText}>Username is required</Text>
       )}
 

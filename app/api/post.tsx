@@ -52,6 +52,6 @@ export const updatePostAPI = async (postId: number, updatedData: any) => {
     return await response.json();
   } catch (error) {
     console.error("Error updating post:", error);
-    throw error;
+    return error;
   }
 };

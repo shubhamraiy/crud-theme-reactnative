@@ -8,7 +8,7 @@ import { Alert, View, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import TabNavigator from "./tab";
 import { Functions } from "../utils/functions";
-import { useTheme, ThemedView, ThemedText } from "../component/layout";
+import { useTheme, ThemedText } from "../component/layout";
 
 const MyDrawer = createDrawerNavigator();
 
@@ -22,16 +22,19 @@ const CustomDrawerContent = (props: any) => {
       <DrawerItemList {...props} />
       <View style={{ marginTop: 10 }}>
         <DrawerItem
-          label={() => <ThemedText>Logout</ThemedText>}
-          icon={({ color, size }) => (
-            <MaterialIcons name="logout" size={size} color={color} />
+          label={() => (
+            <ThemedText style={styles.drawerLabel}>Logout</ThemedText>
+          )}
+          icon={({ size }) => (
+            <MaterialIcons
+              name="logout"
+              size={size}
+              color={isDarkMode ? "#fff" : "#000"}
+            />
           )}
           onPress={() => {
             Alert.alert("Logout", "Are you sure you want to logout?", [
-              {
-                text: "Cancel",
-                style: "cancel",
-              },
+              { text: "Cancel", style: "cancel" },
               {
                 text: "OK",
                 onPress: () => {
@@ -47,18 +50,36 @@ const CustomDrawerContent = (props: any) => {
   );
 };
 
-const DrawerNavigator = () => (
-  <MyDrawer.Navigator
-    drawerContent={(props) => <CustomDrawerContent {...props} />}
-    screenOptions={{ headerShown: false }}
-  >
-    <MyDrawer.Screen
-      name="TabNavigator"
-      options={{ drawerLabel: "Home" }}
-      component={TabNavigator}
-    />
-  </MyDrawer.Navigator>
-);
+const DrawerNavigator = () => {
+  const { isDarkMode } = useTheme();
+
+  return (
+    <MyDrawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerLabelStyle: { color: isDarkMode ? "#fff" : "#000" },
+        drawerActiveTintColor: "#007AFF",
+        drawerInactiveTintColor: isDarkMode ? "#aaa" : "#555",
+      }}
+    >
+      <MyDrawer.Screen
+        name="TabNavigator"
+        options={{
+          drawerLabel: "Home",
+          drawerIcon: ({ size, color }) => (
+            <MaterialIcons
+              name="home"
+              size={size}
+              color={isDarkMode ? "#fff" : "#000"}
+            />
+          ),
+        }}
+        component={TabNavigator}
+      />
+    </MyDrawer.Navigator>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -67,6 +88,9 @@ const styles = StyleSheet.create({
   },
   darkContainer: {
     backgroundColor: "#333",
+  },
+  drawerLabel: {
+    fontSize: 16,
   },
 });
 
